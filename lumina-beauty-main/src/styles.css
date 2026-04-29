@@ -1,0 +1,151 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent-soft: var(--accent-soft);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ivory: var(--ivory);
+  --color-cocoa: var(--cocoa);
+
+  --font-serif: "Cormorant Garamond", "Playfair Display", Georgia, serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-script: "Allura", "Great Vibes", "Cormorant Garamond", cursive;
+
+  --shadow-luxe: 0 30px 80px -40px color-mix(in oklab, var(--cocoa) 35%, transparent);
+  --shadow-soft: 0 10px 40px -20px color-mix(in oklab, var(--cocoa) 18%, transparent);
+
+  --tracking-luxe: 0.22em;
+}
+
+:root {
+  --radius: 0.25rem;
+
+  /* Nude Luxury palette */
+  --background: oklch(0.953 0.018 78);          /* #F6F1EB ivory */
+  --foreground: oklch(0.28 0.025 35);           /* #3B2A26 cocoa */
+  --ivory: oklch(0.97 0.012 78);
+  --cocoa: oklch(0.22 0.022 35);
+
+  --card: oklch(0.97 0.012 78);
+  --card-foreground: oklch(0.28 0.025 35);
+  --popover: oklch(0.97 0.012 78);
+  --popover-foreground: oklch(0.28 0.025 35);
+
+  --primary: oklch(0.72 0.085 75);              /* #C9A46C gold */
+  --primary-foreground: oklch(0.18 0.018 35);
+  --secondary: oklch(0.78 0.075 60);            /* #D6A77A warm */
+  --secondary-foreground: oklch(0.22 0.022 35);
+
+  --muted: oklch(0.91 0.015 75);
+  --muted-foreground: oklch(0.45 0.025 40);
+
+  --accent: oklch(0.72 0.085 75);
+  --accent-foreground: oklch(0.18 0.018 35);
+  --accent-soft: oklch(0.88 0.04 70);
+
+  --destructive: oklch(0.55 0.18 25);
+  --destructive-foreground: oklch(0.97 0.012 78);
+
+  --border: oklch(0.85 0.018 70);
+  --input: oklch(0.88 0.015 70);
+  --ring: oklch(0.72 0.085 75);
+}
+
+@layer base {
+  * { border-color: var(--color-border); }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    font-weight: 300;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5 {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    letter-spacing: -0.01em;
+  }
+
+  ::selection {
+    background: var(--color-primary);
+    color: var(--color-primary-foreground);
+  }
+}
+
+@layer utilities {
+  .eyebrow {
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    font-weight: 400;
+    letter-spacing: var(--tracking-luxe);
+    text-transform: uppercase;
+    color: var(--color-primary);
+  }
+
+  .link-underline {
+    position: relative;
+    display: inline-block;
+  }
+  .link-underline::after {
+    content: "";
+    position: absolute;
+    left: 0; bottom: -4px;
+    width: 100%;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .link-underline:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  .pulse-soft {
+    animation: pulse-soft 2.4s ease-in-out infinite;
+  }
+  @keyframes pulse-soft {
+    0%, 100% { box-shadow: 0 0 0 0 color-mix(in oklab, var(--color-primary) 45%, transparent); }
+    50%      { box-shadow: 0 0 0 14px color-mix(in oklab, var(--color-primary) 0%, transparent); }
+  }
+
+  .hero-zoom {
+    animation: hero-zoom 14s ease-out forwards;
+  }
+  @keyframes hero-zoom {
+    from { transform: scale(1); }
+    to   { transform: scale(1.06); }
+  }
+}
